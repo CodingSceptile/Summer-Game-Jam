@@ -19,8 +19,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
         public string Name { get { return name; } set { name = value; } }
 
         //Constructor
-        public Ingredient(string name, Rectangle position):
-            base(position)
+        public Ingredient(string name, Rectangle position, Texture2D texture):
+            base(position, texture)
         {
             this.name = name;
         }

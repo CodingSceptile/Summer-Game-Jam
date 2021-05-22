@@ -16,8 +16,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
         public string ActionName { get { return actionName; } set { actionName = value; } }
 
         //Constructor
-        public Button(string actionName, Rectangle position):
-            base(position)
+        public Button(string actionName, Rectangle position, Texture2D texture):
+            base(position, texture)
         {
             this.actionName = actionName;
         }

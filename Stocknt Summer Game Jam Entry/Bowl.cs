@@ -18,7 +18,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// <summary>
         /// Property to get and set the current order the bowl's in.
         /// </summary>
-        public List<GameObject> CurrentOrder { get { return currentOrder; } set { currentOrder = value; } }
+        public List<GameObject> CurrentOrder { get { return currentOrder; } }
         
         /// <summary>
         /// Property to get the fixed order to make the stock in.
@@ -31,8 +31,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
         public bool CorrectOrder { get { return correctOrder; } }
 
         //Constructor
-        public Bowl(List<GameObject> orderToMake, Rectangle position):
-            base(position)
+        public Bowl(List<GameObject> orderToMake, Rectangle position, Texture2D texture):
+            base(position, texture)
         {
             this.orderToMake = orderToMake;
             currentOrder = new List<GameObject>();
@@ -48,6 +48,14 @@ namespace Stocknt_Summer_Game_Jam_Entry
         {
             currentOrder.Add(ingredientOrAction);
             OrderCheck();
+        }
+
+        /// <summary>
+        /// Bowl is cleared out to start fresh.
+        /// </summary>
+        public void ClearBowl()
+        {
+            currentOrder.Clear();
         }
 
         /// <summary>

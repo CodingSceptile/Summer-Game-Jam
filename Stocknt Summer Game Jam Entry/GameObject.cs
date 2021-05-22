@@ -11,7 +11,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
     {
         //Fields
         protected Rectangle position;
-
+        protected Texture2D texture;
         //Properties
         /// <summary>
         /// Property to get or set the rectangle of the game object.
@@ -33,14 +33,20 @@ namespace Stocknt_Summer_Game_Jam_Entry
             }
         }
 
+        /// <summary>
+        /// Property to get and set 2D texture.
+        /// </summary>
+        public Texture2D Texture { get { return texture; } set { texture = value; } }
+
         //Constructor
         /// <summary>
         /// Constructor for the GameObject
         /// </summary>
         /// <param name="position">Rectangle of the game object.</param>
-        public GameObject(Rectangle position)
+        public GameObject(Rectangle position, Texture2D texture)
         {
             this.position = position;
+            this.texture = texture;
         }
     }
 }
