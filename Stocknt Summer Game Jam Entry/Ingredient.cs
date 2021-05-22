@@ -11,6 +11,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
     {
         //Fields
         private string name;
+        private Random rng;
 
         //Properties
         /// <summary>
@@ -23,6 +24,22 @@ namespace Stocknt_Summer_Game_Jam_Entry
             base(position, texture)
         {
             this.name = name;
+            rng = new Random();
+        }
+
+        /// <summary>
+        /// Draws the ingredient in the bowl.
+        /// </summary>
+        /// <param name="sb"></param>
+        /// <param name="bowl"></param>
+        public void DrawInBowl(SpriteBatch sb, Bowl bowl)
+        {
+            //Randomizes position of the ingredient placed within the bowl.
+            int Xvalue = rng.Next(bowl.Position.X, bowl.Position.X + bowl.Position.Width);
+            int Yvalue = rng.Next(bowl.Position.Y, bowl.Position.Y + bowl.Position.Height);
+            sb.Draw(texture,
+                    new Rectangle(Xvalue, Yvalue, position.Width, position.Height),
+                    Color.White);
         }
     }
 }

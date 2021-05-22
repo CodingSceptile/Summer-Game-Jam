@@ -48,5 +48,15 @@ namespace Stocknt_Summer_Game_Jam_Entry
             this.position = position;
             this.texture = texture;
         }
+
+        //Methods
+        /// <summary>
+        /// A draw method that can be overriden by child classes.
+        /// </summary>
+        /// <param name="sb"></param>
+        public virtual void Draw(SpriteBatch sb)
+        {
+            sb.Draw(texture, Position, Color.White);
+        }
     }
 }

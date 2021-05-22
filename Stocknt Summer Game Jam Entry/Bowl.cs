@@ -84,5 +84,22 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
             return correctOrder;
         }
+
+        /// <summary>
+        /// Draws the bowl and also the ingredients in the bowl.
+        /// </summary>
+        /// <param name="sb"></param>
+        public override void Draw(SpriteBatch sb)
+        {
+            base.Draw(sb);
+            for(int i = 0; i < currentOrder.Count; i++)
+            {
+                if(currentOrder[i] is Ingredient)
+                {
+                    Ingredient ingredient = (Ingredient)currentOrder[i];
+                    ingredient.DrawInBowl(sb, this);
+                }
+            }
+        }
     }
 }
