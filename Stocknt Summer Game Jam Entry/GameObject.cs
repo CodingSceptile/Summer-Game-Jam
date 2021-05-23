@@ -95,6 +95,18 @@ namespace Stocknt_Summer_Game_Jam_Entry
             }
         }
 
+        public bool Clicked(MouseState mouseState, MouseState prevMouseState)
+        {
+            if (WithinBounds(mouseState) &&
+                mouseState.LeftButton == ButtonState.Pressed &&
+                mouseState != prevMouseState)
+            {
+                return true;
+            }
+
+            else return false;
+        }
+
         /// <summary>
         /// A helper method that tells me if the mouse is within bounds of 
         /// the button or not.

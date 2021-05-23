@@ -11,8 +11,10 @@ namespace Stocknt_Summer_Game_Jam_Entry
     {
         Menu,
         Game,
+        Recipe,
         Victory,
-        Loss
+        Loss,
+        Credits
     }
     public class Game1 : Game
     {
@@ -28,6 +30,12 @@ namespace Stocknt_Summer_Game_Jam_Entry
         Button stir;
         Button refrigerate;
         Button filter;
+
+        //Non-game buttons
+        Button play;
+        Button restart;
+        Button credits;
+        Button reset;
 
         //Ingredients
         Ingredient oliveOil;
@@ -180,6 +188,25 @@ namespace Stocknt_Summer_Game_Jam_Entry
                                                         70,
                                                         40), buttonTexture, arial12);
 
+            play = new Button("Play", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
+                                                    _graphics.PreferredBackBufferHeight - 25,
+                                                    80,
+                                                    50), buttonTexture, arial12);
+
+            restart = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
+                                                    _graphics.PreferredBackBufferHeight - 25,
+                                                    80,
+                                                    50), buttonTexture, arial12);
+
+            credits = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
+                                                    _graphics.PreferredBackBufferHeight - 85,
+                                                    80,
+                                                    50), buttonTexture, arial12);
+
+            reset = new Button("Reset", new Rectangle((_graphics.PreferredBackBufferWidth - 40),
+                                                     10,
+                                                     70,
+                                                     40), buttonTexture, arial12);
             //Now to load up the steps
             order = new List<GameObject>();
             order.Add(preheat);
@@ -215,6 +242,16 @@ namespace Stocknt_Summer_Game_Jam_Entry
             switch(gameState)
             {
                 case GameStates.Menu:
+                    
+                    if(play.Clicked(mouseState, prevMouseState))
+                    {
+                        gameState = GameStates.Game;
+                    }
+
+                    if(credits.Clicked(mouseState, prevMouseState))
+                    {
+                        gameState = GameStates.Credits;
+                    }
 
                     break;
 
@@ -223,6 +260,29 @@ namespace Stocknt_Summer_Game_Jam_Entry
                     for (int i = 0; i < order.Count; i++)
                     {
                         order[i].Clicked(mouseState, prevMouseState, bowl);
+                    }
+
+                    if (bowl.CurrentOrder.Count == bowl.OrderToMake.Count)
+                    {
+                        if (bowl.CorrectOrder)
+                            gameState = GameStates.Victory;
+
+                        else
+                            gameState = GameStates.Loss;
+                    }
+
+                    if (mouseState.RightButton == ButtonState.Pressed)
+                    {
+                        gameState = GameStates.Recipe;
+                    }
+
+                    break;
+               
+               case GameStates.Recipe:
+
+                    if(mouseState.RightButton == ButtonState.Released)
+                    {
+                        gameState = GameStates.Game;
                     }
 
                     break;
@@ -252,6 +312,9 @@ namespace Stocknt_Summer_Game_Jam_Entry
             {
                 case GameStates.Menu:
 
+                    play.Draw(_spriteBatch);
+                    credits.Draw(_spriteBatch);
+
                     break;
 
                 case GameStates.Game:
@@ -261,13 +324,24 @@ namespace Stocknt_Summer_Game_Jam_Entry
                         order[i].Draw(_spriteBatch, mouseState);
                     }
 
+                    bowl.Draw(_spriteBatch);
+                    break;
+
+                case GameStates.Recipe:
+
+                    
+
                     break;
 
                 case GameStates.Loss:
 
+                    restart.Draw(_spriteBatch);
+
                     break;
 
                 case GameStates.Victory:
+
+                    restart.Draw(_spriteBatch);
 
                     break;
             }
