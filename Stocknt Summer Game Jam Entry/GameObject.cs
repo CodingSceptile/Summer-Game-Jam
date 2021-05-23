@@ -85,10 +85,11 @@ namespace Stocknt_Summer_Game_Jam_Entry
             
         }
 
-        public void Clicked(MouseState mouseState, Bowl bowl)
+        public void Clicked(MouseState mouseState, MouseState prevMouseState, Bowl bowl)
         {
             if(WithinBounds(mouseState) &&
-               mouseState.LeftButton == ButtonState.Pressed)
+               mouseState.LeftButton == ButtonState.Pressed &&
+               mouseState != prevMouseState)
             {
                 bowl.AddStep(this);
             }

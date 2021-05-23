@@ -7,6 +7,13 @@ using System.Text;
 
 namespace Stocknt_Summer_Game_Jam_Entry
 {
+    public enum GameStates
+    {
+        Menu,
+        Game,
+        Victory,
+        Loss
+    }
     public class Game1 : Game
     {
         private GraphicsDeviceManager _graphics;
@@ -52,13 +59,17 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
         //Misc
         MouseState mouseState;
+        MouseState prevMouseState;
         SpriteFont arial12;
         List<GameObject> order;
+        GameStates gameState;
+
          public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            gameState = GameStates.Menu;
         }
 
         protected override void Initialize()
@@ -92,81 +103,81 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
             oliveOil = new Ingredient("Olive Oil", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  20,
-                                                                 40,
-                                                                 40),
+                                                                 30,
+                                                                 30),
                                                                  oilTexture);
             chicken = new Ingredient("Chicken", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 70,
-                                                                 40,
-                                                                 40),
+                                                                 60,
+                                                                 30,
+                                                                 30),
                                                                  chickenTexture);
             carrots = new Ingredient("Carrots", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 120,
-                                                                 40,
-                                                                 40),
+                                                                 100,
+                                                                 30,
+                                                                 30),
                                                                  carrotTexture);
             onions = new Ingredient("Onions", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 170,
-                                                                 40,
-                                                                 40),
+                                                                 140,
+                                                                 30,
+                                                                 30),
                                                                  onionTexture);
             celeryWithLeaves = new Ingredient("Celery with leaves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 220,
-                                                                 40,
-                                                                 40),
+                                                                 180,
+                                                                 30,
+                                                                 30),
                                                                  celeryTexture);
             dryWhiteWine = new Ingredient("Dry White Wine", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 270,
-                                                                 40,
-                                                                 40),
+                                                                 220,
+                                                                 30,
+                                                                 30),
                                                                  wineTexture);
             pepperCorns = new Ingredient("Pepper corns", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 320,
-                                                                 40,
-                                                                 40),
+                                                                 260,
+                                                                 30,
+                                                                 30),
                                                                  pepperCornTexture);
             cloves = new Ingredient("Cloves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 370,
-                                                                 40,
-                                                                 40),
+                                                                 300,
+                                                                 30,
+                                                                 30),
                                                                  cloveTexture);
             bayLeaves = new Ingredient("Bay leaves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 420, //nice
-                                                                 40,
-                                                                 40),
+                                                                 340, 
+                                                                 30,
+                                                                 30),
                                                                  bayLeavesTexture);
             sprigFreshThyme = new Ingredient("Sprig Fresh Thyme", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 470,
-                                                                 40,
-                                                                 40),
+                                                                 380,
+                                                                 30,
+                                                                 30),
                                                                  thymeTexture);
             water = new Ingredient("Water", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
-                                                                 520,
-                                                                 40,
-                                                                 40),
+                                                                 420, //nice
+                                                                 30,
+                                                                 30),
                                                                  waterTexture);
 
             //Buttons, same Rectangle clause applies
             preheat = new Button("Preheat", new Rectangle(50,
                                                           20,
-                                                          40,
+                                                          70,
                                                           40),
                                                           buttonTexture, arial12);
             roast = new Button("Roast", new Rectangle(50,
                                                       70,
-                                                      40,
+                                                      70,
                                                       40), buttonTexture, arial12);
             stir = new Button("Stir", new Rectangle(50,
                                                     120,
-                                                    40,
+                                                    70,
                                                     40), buttonTexture, arial12);
             refrigerate = new Button("Refrigerate", new Rectangle(50,
                                                                   170,
-                                                                  40,
+                                                                  70,
                                                                   40), buttonTexture, arial12);
             filter = new Button("Filter", new Rectangle(50,
                                                         220,
-                                                        40,
+                                                        70,
                                                         40), buttonTexture, arial12);
 
             //Now to load up the steps
@@ -188,10 +199,10 @@ namespace Stocknt_Summer_Game_Jam_Entry
             order.Add(filter);
             order.Add(refrigerate);
 
-            bowl = new Bowl(order, new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50,
-                                                 _graphics.PreferredBackBufferHeight / 2 - 50,
-                                                 100,
-                                                 100), bowlTexture);
+            bowl = new Bowl(order, new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 100,
+                                                 _graphics.PreferredBackBufferHeight / 2 - 100,
+                                                 200,
+                                                 200), bowlTexture);
         }
 
         protected override void Update(GameTime gameTime)
@@ -201,8 +212,32 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
             // TODO: Add your update logic here
             mouseState = Mouse.GetState();
+            switch(gameState)
+            {
+                case GameStates.Menu:
 
+                    break;
 
+                case GameStates.Game:
+                    
+                    for (int i = 0; i < order.Count; i++)
+                    {
+                        order[i].Clicked(mouseState, prevMouseState, bowl);
+                    }
+
+                    break;
+
+                case GameStates.Loss:
+
+                    break;
+
+                case GameStates.Victory:
+
+                    break;
+            }
+            
+
+            prevMouseState = mouseState;
             base.Update(gameTime);
         }
 
@@ -213,12 +248,31 @@ namespace Stocknt_Summer_Game_Jam_Entry
             _spriteBatch.Begin();
            
             //Since all the stuff that's to be clicked is in the array I can just use that I think
-            for(int i = 0; i < order.Count; i++)
+            switch(gameState)
             {
-                order[i].Draw(_spriteBatch, mouseState);
-            }
+                case GameStates.Menu:
 
-            bowl.Draw(_spriteBatch);
+                    break;
+
+                case GameStates.Game:
+
+                    for (int i = 0; i < order.Count; i++)
+                    {
+                        order[i].Draw(_spriteBatch, mouseState);
+                    }
+
+                    break;
+
+                case GameStates.Loss:
+
+                    break;
+
+                case GameStates.Victory:
+
+                    break;
+            }
+            
+            bowl.Draw(_spriteBatch, mouseState);
 
             _spriteBatch.End();
             base.Draw(gameTime);

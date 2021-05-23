@@ -23,7 +23,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// <summary>
         /// Property to get the fixed order to make the stock in.
         /// </summary>
-        public List<GameObject> OrderToMake { get { return OrderToMake; } }
+        public List<GameObject> OrderToMake { get { return orderToMake; } }
 
         /// <summary>
         /// Property to check if the current order in the soup stock is correct.
@@ -70,9 +70,37 @@ namespace Stocknt_Summer_Game_Jam_Entry
                 correctOrder = true;
                 //For now it raw equates but this probably won't work and will need
                 //finer string checks, but is fine for the base cose
-                if(currentOrder[i].Equals(OrderToMake[i]))
+                if(currentOrder[i] is Button && orderToMake[i] is Button)
                 {
-                    continue;
+                    Button button = (Button)currentOrder[i];
+                    Button correctButton = (Button)orderToMake[i];
+                    if(button.ActionName.Equals(correctButton.ActionName))
+                    {
+                        continue;
+                    }
+
+                    else
+                    {
+                        correctOrder = false;
+                        break;
+                    }
+                }
+
+                else if(currentOrder[i] is Ingredient && orderToMake[i] is Ingredient)
+                {
+                    Ingredient ingredient = (Ingredient)currentOrder[i];
+                    Ingredient correctIngredient = (Ingredient)orderToMake[i];
+                    if(ingredient.Name.Equals(correctIngredient.Name))
+                    {
+                        continue;
+                    }
+
+                    else
+                    {
+                        correctOrder = false;
+                        break;
+                    }
+
                 }
 
                 else
@@ -89,9 +117,18 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// Draws the bowl and also the ingredients in the bowl.
         /// </summary>
         /// <param name="sb"></param>
-        public override void Draw(SpriteBatch sb)
+        public override void Draw(SpriteBatch sb, MouseState mouseState)
         {
-            base.Draw(sb);
+            if (correctOrder)
+            {
+                sb.Draw(texture, Position, Color.Green);
+            }
+
+            else
+            {
+                sb.Draw(texture, Position, Color.Red);
+            }
+            
             for(int i = 0; i < currentOrder.Count; i++)
             {
                 if(currentOrder[i] is Ingredient)

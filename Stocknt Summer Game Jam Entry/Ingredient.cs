@@ -12,6 +12,11 @@ namespace Stocknt_Summer_Game_Jam_Entry
         //Fields
         private string name;
         private Random rng;
+        bool alreadyDrawnInBowl;
+
+        //Coords for when placed in bowl
+        int Xvalue;
+        int Yvalue;
 
         //Properties
         /// <summary>
@@ -25,6 +30,9 @@ namespace Stocknt_Summer_Game_Jam_Entry
         {
             this.name = name;
             rng = new Random();
+            alreadyDrawnInBowl = false;
+            Xvalue = 0;
+            Yvalue = 0;
         }
 
         /// <summary>
@@ -35,8 +43,13 @@ namespace Stocknt_Summer_Game_Jam_Entry
         public void DrawInBowl(SpriteBatch sb, Bowl bowl)
         {
             //Randomizes position of the ingredient placed within the bowl.
-            int Xvalue = rng.Next(bowl.Position.X, bowl.Position.X + bowl.Position.Width);
-            int Yvalue = rng.Next(bowl.Position.Y, bowl.Position.Y + bowl.Position.Height);
+            if(!alreadyDrawnInBowl)
+            {
+                Xvalue = rng.Next(bowl.Position.X, bowl.Position.X + bowl.Position.Width);
+                Yvalue = rng.Next(bowl.Position.Y, bowl.Position.Y + bowl.Position.Height);
+                alreadyDrawnInBowl = true;
+            }
+            
             sb.Draw(texture,
                     new Rectangle(Xvalue, Yvalue, position.Width, position.Height),
                     Color.White);
