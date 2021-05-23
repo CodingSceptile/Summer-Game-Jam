@@ -92,6 +92,18 @@
 /processorParam:TextureFormat=Color
 /build:Laura_Shefler peppercorn.PNG
 
+#begin madichan bowl.PNG
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:madichan bowl.PNG
+
 #begin onions.PNG
 /importer:TextureImporter
 /processor:TextureProcessor

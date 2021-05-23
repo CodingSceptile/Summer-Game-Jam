@@ -1,6 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace Stocknt_Summer_Game_Jam_Entry
 {
@@ -10,6 +13,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
         private SpriteBatch _spriteBatch;
 
         //My fields
+        Bowl bowl;
+
         //Buttons
         Button preheat;
         Button roast;
@@ -43,6 +48,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
         Texture2D bayLeavesTexture;
         Texture2D thymeTexture;
         Texture2D waterTexture;
+        Texture2D bowlTexture;
 
         //Misc
         MouseState mouseState;
@@ -78,6 +84,27 @@ namespace Stocknt_Summer_Game_Jam_Entry
             refrigerate = new Button("Refrigerate", new Rectangle(), buttonTexture, arial12);
             filter = new Button("Filter", new Rectangle(), buttonTexture, arial12);
 
+            //Now to load up the steps
+            List<GameObject> order = new List<GameObject>();
+            order.Add(preheat);
+            order.Add(oliveOil);
+            order.Add(chicken);
+            order.Add(carrots);
+            order.Add(onions);
+            order.Add(celeryWithLeaves);
+            order.Add(roast);
+            order.Add(stir);
+            order.Add(dryWhiteWine);
+            order.Add(pepperCorns);
+            order.Add(cloves);
+            order.Add(bayLeaves);
+            order.Add(sprigFreshThyme);
+            order.Add(water);
+            order.Add(filter);
+            order.Add(refrigerate);
+
+            bowl = new Bowl(order, new Rectangle(), bowlTexture);
+
             base.Initialize();
         }
 
@@ -99,6 +126,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
             bayLeavesTexture = Content.Load<Texture2D>("camilla_karstensen bay leaves");
             thymeTexture = Content.Load<Texture2D>("thyme");
             waterTexture = Content.Load<Texture2D>("water");
+            bowlTexture = Content.Load<Texture2D>("madichan bowl");
         }
 
         protected override void Update(GameTime gameTime)
