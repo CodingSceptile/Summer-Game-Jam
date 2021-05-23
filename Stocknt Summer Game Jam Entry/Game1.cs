@@ -65,24 +65,84 @@ namespace Stocknt_Summer_Game_Jam_Entry
         {
             // TODO: Add your initialization logic here
             //Rectangles are temporary, will change them to real stuff when I wake up
-            oliveOil = new Ingredient("Olive Oil", new Rectangle(), oilTexture);
-            chicken = new Ingredient("Chicken", new Rectangle(), chickenTexture);
-            carrots = new Ingredient("Carrots", new Rectangle(), carrotTexture);
-            onions = new Ingredient("Onions", new Rectangle(), onionTexture);
-            celeryWithLeaves = new Ingredient("Celery with leaves", new Rectangle(), celeryTexture);
-            dryWhiteWine = new Ingredient("Dry White Wine", new Rectangle(), wineTexture);
-            pepperCorns = new Ingredient("Pepper corns", new Rectangle(), pepperCornTexture);
-            cloves = new Ingredient("Cloves", new Rectangle(), cloveTexture);
-            bayLeaves = new Ingredient("Bay leaves", new Rectangle(), bayLeavesTexture);
-            sprigFreshThyme = new Ingredient("Sprig Fresh Thyme", new Rectangle(), thymeTexture);
-            water = new Ingredient("Water", new Rectangle(), waterTexture);
+            oliveOil = new Ingredient("Olive Oil", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 20,
+                                                                 40,
+                                                                 40),
+                                                                 oilTexture);
+            chicken = new Ingredient("Chicken", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 70,
+                                                                 40,
+                                                                 40),
+                                                                 chickenTexture);
+            carrots = new Ingredient("Carrots", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 120,
+                                                                 40,
+                                                                 40), 
+                                                                 carrotTexture);
+            onions = new Ingredient("Onions", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 170,
+                                                                 40,
+                                                                 40), 
+                                                                 onionTexture);
+            celeryWithLeaves = new Ingredient("Celery with leaves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 220,
+                                                                 40,
+                                                                 40), 
+                                                                 celeryTexture);
+            dryWhiteWine = new Ingredient("Dry White Wine", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 270,
+                                                                 40,
+                                                                 40),
+                                                                 wineTexture);
+            pepperCorns = new Ingredient("Pepper corns", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 320,
+                                                                 40,
+                                                                 40),
+                                                                 pepperCornTexture);
+            cloves = new Ingredient("Cloves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 370,
+                                                                 40,
+                                                                 40),
+                                                                 cloveTexture);
+            bayLeaves = new Ingredient("Bay leaves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 420, //nice
+                                                                 40,
+                                                                 40),
+                                                                 bayLeavesTexture);
+            sprigFreshThyme = new Ingredient("Sprig Fresh Thyme", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 470,
+                                                                 40,
+                                                                 40),
+                                                                 thymeTexture);
+            water = new Ingredient("Water", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
+                                                                 520,
+                                                                 40,
+                                                                 40),
+                                                                 waterTexture);
 
             //Buttons, same Rectangle clause applies
-            preheat = new Button("Preheat", new Rectangle(), buttonTexture, arial12);
-            roast = new Button("Roast", new Rectangle(), buttonTexture, arial12);
-            stir = new Button("Stir", new Rectangle(), buttonTexture, arial12);
-            refrigerate = new Button("Refrigerate", new Rectangle(), buttonTexture, arial12);
-            filter = new Button("Filter", new Rectangle(), buttonTexture, arial12);
+            preheat = new Button("Preheat", new Rectangle(50,
+                                                          20,
+                                                          40, 
+                                                          40),
+                                                          buttonTexture, arial12);
+            roast = new Button("Roast", new Rectangle(50,
+                                                      70,
+                                                      40,
+                                                      40), buttonTexture, arial12);
+            stir = new Button("Stir", new Rectangle(50,
+                                                    120,
+                                                    40,
+                                                    40), buttonTexture, arial12);
+            refrigerate = new Button("Refrigerate", new Rectangle(50,
+                                                                  170,
+                                                                  40,
+                                                                  40), buttonTexture, arial12);
+            filter = new Button("Filter", new Rectangle(50,
+                                                        220,
+                                                        40,
+                                                        40), buttonTexture, arial12);
 
             //Now to load up the steps
             List<GameObject> order = new List<GameObject>();
@@ -103,7 +163,10 @@ namespace Stocknt_Summer_Game_Jam_Entry
             order.Add(filter);
             order.Add(refrigerate);
 
-            bowl = new Bowl(order, new Rectangle(), bowlTexture);
+            bowl = new Bowl(order, new Rectangle(_graphics.PreferredBackBufferWidth/2 - 50,
+                                                 _graphics.PreferredBackBufferHeight/2 - 50,
+                                                 100,
+                                                 100), bowlTexture);
 
             base.Initialize();
         }
