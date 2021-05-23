@@ -188,22 +188,22 @@ namespace Stocknt_Summer_Game_Jam_Entry
                                                         70,
                                                         40), buttonTexture, arial12);
 
-            play = new Button("Play", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
-                                                    _graphics.PreferredBackBufferHeight - 25,
+            play = new Button("Play", new Rectangle(_graphics.PreferredBackBufferWidth/2 - 40,
+                                                    _graphics.PreferredBackBufferHeight/2 - 25,
                                                     80,
                                                     50), buttonTexture, arial12);
 
-            restart = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
-                                                    _graphics.PreferredBackBufferHeight - 25,
+            restart = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth/2 - 40,
+                                                    _graphics.PreferredBackBufferHeight/2 - 25,
                                                     80,
                                                     50), buttonTexture, arial12);
 
-            credits = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth - 40,
-                                                    _graphics.PreferredBackBufferHeight - 85,
+            credits = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth/2 - 40,
+                                                    _graphics.PreferredBackBufferHeight/2 - 85,
                                                     80,
                                                     50), buttonTexture, arial12);
 
-            reset = new Button("Reset", new Rectangle((_graphics.PreferredBackBufferWidth - 40),
+            reset = new Button("Reset", new Rectangle((_graphics.PreferredBackBufferWidth/2 - 40),
                                                      10,
                                                      70,
                                                      40), buttonTexture, arial12);
@@ -276,6 +276,11 @@ namespace Stocknt_Summer_Game_Jam_Entry
                         gameState = GameStates.Recipe;
                     }
 
+                    if(reset.Clicked(mouseState, prevMouseState))
+                    {
+                        bowl.ClearBowl();
+                    }
+
                     break;
                
                case GameStates.Recipe:
@@ -289,10 +294,21 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
                 case GameStates.Loss:
 
+                    if (restart.Clicked(mouseState, prevMouseState))
+                    {
+                        bowl.ClearBowl();
+                        gameState = GameStates.Game;
+                    }
+
                     break;
 
                 case GameStates.Victory:
-
+                    
+                    if (restart.Clicked(mouseState, prevMouseState))
+                    {
+                        bowl.ClearBowl();
+                        gameState = GameStates.Game;
+                    }
                     break;
             }
             
@@ -312,6 +328,11 @@ namespace Stocknt_Summer_Game_Jam_Entry
             {
                 case GameStates.Menu:
 
+                    _spriteBatch.DrawString(arial12,
+                                           "Stockn't: No soup",
+                                           new Vector2(_graphics.PreferredBackBufferWidth / 2 - 40,
+                                                       40),
+                                           Color.White);
                     play.Draw(_spriteBatch);
                     credits.Draw(_spriteBatch);
 
@@ -324,29 +345,52 @@ namespace Stocknt_Summer_Game_Jam_Entry
                         order[i].Draw(_spriteBatch, mouseState);
                     }
 
-                    bowl.Draw(_spriteBatch);
+                    reset.Draw(_spriteBatch, mouseState);
+                    bowl.Draw(_spriteBatch, mouseState);
+
+                    _spriteBatch.DrawString(arial12,
+                                            "Hold right click to view the recipe",
+                                            new Vector2(_graphics.PreferredBackBufferWidth / 2 - 50,
+                                                        _graphics.PreferredBackBufferHeight - 20),
+                                            Color.White);
                     break;
 
                 case GameStates.Recipe:
 
-                    
+                    _spriteBatch.DrawString(arial12,
+                                            "1. Preheat the oven" +
+                                            "\n2. Add olive oil, chicken, carrots, and onions, in that order" +
+                                            "\n3. Then add the celery before roasting the mixture." +
+                                            "\n4. After roasting it, stir the mixture and then add dry white wine to it." +
+                                            "\n5. Add peppercorns, cloves, bay leaves and thyme in that order." +
+                                            "\n6. Add water before filtering out the mixture and then refrigerate it." +
+                                            "\n7. Stock is ready!",
+                                            new Vector2(_graphics.PreferredBackBufferWidth/2 - 120,
+                                                        10),
+                                            Color.White);
 
                     break;
 
                 case GameStates.Loss:
 
+                    _spriteBatch.DrawString(arial12, "That's tough. Better luck next time",
+                                            new Vector2(_graphics.PreferredBackBufferWidth/2,
+                                                        _graphics.PreferredBackBufferHeight/2 - 70),
+                                            Color.White);
                     restart.Draw(_spriteBatch);
 
                     break;
 
                 case GameStates.Victory:
 
+                    _spriteBatch.DrawString(arial12, "GG go have some soup.",
+                                            new Vector2(_graphics.PreferredBackBufferWidth/2,
+                                                        _graphics.PreferredBackBufferHeight/2 - 70),
+                                            Color.White);
                     restart.Draw(_spriteBatch);
 
                     break;
             }
-            
-            bowl.Draw(_spriteBatch, mouseState);
 
             _spriteBatch.End();
             base.Draw(gameTime);
