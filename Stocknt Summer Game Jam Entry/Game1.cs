@@ -53,8 +53,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
         //Misc
         MouseState mouseState;
         SpriteFont arial12;
-
-        public Game1()
+        List<GameObject> order;
+         public Game1()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -64,7 +64,32 @@ namespace Stocknt_Summer_Game_Jam_Entry
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            //Rectangles are temporary, will change them to real stuff when I wake up
+            
+
+            base.Initialize();
+        }
+
+        protected override void LoadContent()
+        {
+            _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            // TODO: use this.Content to load your game content here
+            arial12 = Content.Load<SpriteFont>("arial12");
+
+            oilTexture = Content.Load<Texture2D>("ajay_suresh olive oil");
+            chickenTexture = Content.Load<Texture2D>("scott_rubin chicken");
+            carrotTexture = Content.Load<Texture2D>("carrots");
+            onionTexture = Content.Load<Texture2D>("onions");
+            celeryTexture = Content.Load<Texture2D>("keepon_i celery");
+            wineTexture = Content.Load<Texture2D>("WHP Wine");
+            pepperCornTexture = Content.Load<Texture2D>("Laura_Shefler peppercorn");
+            cloveTexture = Content.Load<Texture2D>("anuandraj cloves");
+            bayLeavesTexture = Content.Load<Texture2D>("camilla_karstensen bay leaves");
+            thymeTexture = Content.Load<Texture2D>("thyme");
+            waterTexture = Content.Load<Texture2D>("water");
+            bowlTexture = Content.Load<Texture2D>("madichan bowl");
+            buttonTexture = Content.Load<Texture2D>("button");
+
             oliveOil = new Ingredient("Olive Oil", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  20,
                                                                  40,
@@ -78,17 +103,17 @@ namespace Stocknt_Summer_Game_Jam_Entry
             carrots = new Ingredient("Carrots", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  120,
                                                                  40,
-                                                                 40), 
+                                                                 40),
                                                                  carrotTexture);
             onions = new Ingredient("Onions", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  170,
                                                                  40,
-                                                                 40), 
+                                                                 40),
                                                                  onionTexture);
             celeryWithLeaves = new Ingredient("Celery with leaves", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  220,
                                                                  40,
-                                                                 40), 
+                                                                 40),
                                                                  celeryTexture);
             dryWhiteWine = new Ingredient("Dry White Wine", new Rectangle(_graphics.PreferredBackBufferWidth - 50,
                                                                  270,
@@ -124,7 +149,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
             //Buttons, same Rectangle clause applies
             preheat = new Button("Preheat", new Rectangle(50,
                                                           20,
-                                                          40, 
+                                                          40,
                                                           40),
                                                           buttonTexture, arial12);
             roast = new Button("Roast", new Rectangle(50,
@@ -145,7 +170,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
                                                         40), buttonTexture, arial12);
 
             //Now to load up the steps
-            List<GameObject> order = new List<GameObject>();
+            order = new List<GameObject>();
             order.Add(preheat);
             order.Add(oliveOil);
             order.Add(chicken);
@@ -163,33 +188,10 @@ namespace Stocknt_Summer_Game_Jam_Entry
             order.Add(filter);
             order.Add(refrigerate);
 
-            bowl = new Bowl(order, new Rectangle(_graphics.PreferredBackBufferWidth/2 - 50,
-                                                 _graphics.PreferredBackBufferHeight/2 - 50,
+            bowl = new Bowl(order, new Rectangle(_graphics.PreferredBackBufferWidth / 2 - 50,
+                                                 _graphics.PreferredBackBufferHeight / 2 - 50,
                                                  100,
                                                  100), bowlTexture);
-
-            base.Initialize();
-        }
-
-        protected override void LoadContent()
-        {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            // TODO: use this.Content to load your game content here
-            arial12 = Content.Load<SpriteFont>("arial12");
-
-            oilTexture = Content.Load<Texture2D>("ajay_suresh olive oil");
-            chickenTexture = Content.Load<Texture2D>("scott_rubin chicken");
-            carrotTexture = Content.Load<Texture2D>("carrots");
-            onionTexture = Content.Load<Texture2D>("onions");
-            celeryTexture = Content.Load<Texture2D>("keepon_i celery");
-            wineTexture = Content.Load<Texture2D>("WHP Wine");
-            pepperCornTexture = Content.Load<Texture2D>("Laura_Shefler peppercorn");
-            cloveTexture = Content.Load<Texture2D>("anuandraj cloves");
-            bayLeavesTexture = Content.Load<Texture2D>("camilla_karstensen bay leaves");
-            thymeTexture = Content.Load<Texture2D>("thyme");
-            waterTexture = Content.Load<Texture2D>("water");
-            bowlTexture = Content.Load<Texture2D>("madichan bowl");
         }
 
         protected override void Update(GameTime gameTime)
@@ -200,15 +202,25 @@ namespace Stocknt_Summer_Game_Jam_Entry
             // TODO: Add your update logic here
             mouseState = Mouse.GetState();
 
+
             base.Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            
+            _spriteBatch.Begin();
+           
+            //Since all the stuff that's to be clicked is in the array I can just use that I think
+            for(int i = 0; i < order.Count; i++)
+            {
+                order[i].Draw(_spriteBatch, mouseState);
+            }
 
-            // TODO: Add your drawing code here
+            bowl.Draw(_spriteBatch);
 
+            _spriteBatch.End();
             base.Draw(gameTime);
         }
     }
