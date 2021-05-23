@@ -53,10 +53,64 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// <summary>
         /// A draw method that can be overriden by child classes.
         /// </summary>
-        /// <param name="sb"></param>
+        /// <param name="sb">Spritebatch</param>
         public virtual void Draw(SpriteBatch sb)
         {
             sb.Draw(texture, Position, Color.White);
+        }
+
+        /// <summary>
+        /// Draws in different colour depending on if it's been clicked or not.
+        /// </summary>
+        /// <param name="sb">Spritebatch</param>
+        /// <param name="mouseState">Mouse state</param>
+        public virtual void Draw(SpriteBatch sb, MouseState mouseState)
+        {
+            if(WithinBounds(mouseState) && 
+               mouseState.LeftButton == ButtonState.Pressed)
+            {
+                sb.Draw(texture, Position, Color.Black);
+            }
+
+            else if(WithinBounds(mouseState) &&
+                    mouseState.LeftButton == ButtonState.Released)
+            {
+                sb.Draw(texture, Position, Color.DeepSkyBlue);
+            }
+
+            else if(!WithinBounds(mouseState))
+            {
+                Draw(sb);
+            }
+            
+        }
+
+        public void Clicked(MouseState mouseState, Bowl bowl)
+        {
+            if(WithinBounds(mouseState) &&
+               mouseState.LeftButton == ButtonState.Pressed)
+            {
+                bowl.AddStep(this);
+            }
+        }
+
+        /// <summary>
+        /// A helper method that tells me if the mouse is within bounds of 
+        /// the button or not.
+        /// </summary>
+        /// <param name="mouseState">The mouse state</param>
+        /// <returns></returns>
+        public bool WithinBounds(MouseState mouseState)
+        {
+            if (mouseState.X > position.X &&
+               mouseState.X < position.X + position.Width &&
+               mouseState.Y > position.Y &&
+               mouseState.Y < position.Y + position.Height)
+            {
+                return true;
+            }
+
+            else return false;
         }
     }
 }

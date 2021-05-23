@@ -135,6 +135,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
                 Exit();
 
             // TODO: Add your update logic here
+            mouseState = Mouse.GetState();
 
             base.Update(gameTime);
         }
