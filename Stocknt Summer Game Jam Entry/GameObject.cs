@@ -64,7 +64,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// </summary>
         /// <param name="sb">Spritebatch</param>
         /// <param name="mouseState">Mouse state</param>
-        public virtual void Draw(SpriteBatch sb, MouseState mouseState)
+        public virtual void Draw(SpriteBatch sb, MouseState mouseState, SpriteFont spriteFont)
         {
             if(WithinBounds(mouseState) && 
                mouseState.LeftButton == ButtonState.Pressed)
@@ -76,6 +76,14 @@ namespace Stocknt_Summer_Game_Jam_Entry
                     mouseState.LeftButton == ButtonState.Released)
             {
                 sb.Draw(texture, Position, Color.DeepSkyBlue);
+                if(this is Ingredient)
+                {
+                    Ingredient ingredient = (Ingredient)this;
+                    sb.DrawString(spriteFont,
+                                  ingredient.Name,
+                                  new Vector2(position.X - 15, position.Y - 15),
+                                  Color.White);
+                }
             }
 
             else if(!WithinBounds(mouseState))

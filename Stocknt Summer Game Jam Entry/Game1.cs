@@ -198,8 +198,8 @@ namespace Stocknt_Summer_Game_Jam_Entry
                                                     80,
                                                     50), buttonTexture, arial12);
 
-            credits = new Button("Restart", new Rectangle(_graphics.PreferredBackBufferWidth/2 - 40,
-                                                    _graphics.PreferredBackBufferHeight/2 - 85,
+            credits = new Button("Credits", new Rectangle(_graphics.PreferredBackBufferWidth/2 - 40,
+                                                    _graphics.PreferredBackBufferHeight/2 + 35,
                                                     80,
                                                     50), buttonTexture, arial12);
 
@@ -292,6 +292,15 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
                     break;
 
+               case GameStates.Credits:
+
+                    if(mouseState.LeftButton == ButtonState.Pressed &&
+                       prevMouseState != mouseState)
+                    {
+                        gameState = GameStates.Menu;
+                    }
+                    break;
+
                 case GameStates.Loss:
 
                     if (restart.Clicked(mouseState, prevMouseState))
@@ -342,11 +351,11 @@ namespace Stocknt_Summer_Game_Jam_Entry
 
                     for (int i = 0; i < order.Count; i++)
                     {
-                        order[i].Draw(_spriteBatch, mouseState);
+                        order[i].Draw(_spriteBatch, mouseState, arial12);
                     }
 
-                    reset.Draw(_spriteBatch, mouseState);
-                    bowl.Draw(_spriteBatch, mouseState);
+                    reset.Draw(_spriteBatch, mouseState, arial12);
+                    bowl.Draw(_spriteBatch, mouseState, arial12);
 
                     _spriteBatch.DrawString(arial12,
                                             "Hold right click to view the recipe",
@@ -369,6 +378,28 @@ namespace Stocknt_Summer_Game_Jam_Entry
                                                         10),
                                             Color.White);
 
+                    break;
+
+                case GameStates.Credits:
+
+                    _spriteBatch.DrawString(arial12,
+                                           "Olive oil - Ajay Suresh" +
+                                           "\nChicken - Scott Rubin" +
+                                           "\nCloves - Anuandraj" +
+                                           "\nBay Leaves - Camilla Karstensen" +
+                                           "\nCelery - Keepon I" +
+                                           "\nPeppercorn - Laura Shefler" +
+                                           "\n Bowl - Madichan" +
+                                           "\n Wine - Wine House Portugal",
+                                           new Vector2(_graphics.PreferredBackBufferWidth/2 - 60,
+                                                       30),
+                                           Color.White);
+
+                    _spriteBatch.DrawString(arial12,
+                                            "Left click to go back to menu",
+                                            new Vector2(_graphics.PreferredBackBufferWidth / 2 - 40,
+                                                       _graphics.PreferredBackBufferHeight - 30),
+                                            Color.White);
                     break;
 
                 case GameStates.Loss:

@@ -117,7 +117,7 @@ namespace Stocknt_Summer_Game_Jam_Entry
         /// Draws the bowl and also the ingredients in the bowl.
         /// </summary>
         /// <param name="sb"></param>
-        public override void Draw(SpriteBatch sb, MouseState mouseState)
+        public override void Draw(SpriteBatch sb, MouseState mouseState, SpriteFont spriteFont)
         {
             if (correctOrder)
             {
