@@ -36,9 +36,17 @@ namespace Stocknt_Summer_Game_Jam_Entry
         Texture2D chickenTexture;
         Texture2D carrotTexture;
         Texture2D onionTexture;
+        Texture2D celeryTexture;
+        Texture2D wineTexture;
+        Texture2D pepperCornTexture;
+        Texture2D cloveTexture;
+        Texture2D bayLeavesTexture;
+        Texture2D thymeTexture;
+        Texture2D waterTexture;
 
         //Misc
         MouseState mouseState;
+        SpriteFont arial12;
 
         public Game1()
         {
@@ -50,6 +58,25 @@ namespace Stocknt_Summer_Game_Jam_Entry
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            //Rectangles are temporary, will change them to real stuff when I wake up
+            oliveOil = new Ingredient("Olive Oil", new Rectangle(), oilTexture);
+            chicken = new Ingredient("Chicken", new Rectangle(), chickenTexture);
+            carrots = new Ingredient("Carrots", new Rectangle(), carrotTexture);
+            onions = new Ingredient("Onions", new Rectangle(), onionTexture);
+            celeryWithLeaves = new Ingredient("Celery with leaves", new Rectangle(), celeryTexture);
+            dryWhiteWine = new Ingredient("Dry White Wine", new Rectangle(), wineTexture);
+            pepperCorns = new Ingredient("Pepper corns", new Rectangle(), pepperCornTexture);
+            cloves = new Ingredient("Cloves", new Rectangle(), cloveTexture);
+            bayLeaves = new Ingredient("Bay leaves", new Rectangle(), bayLeavesTexture);
+            sprigFreshThyme = new Ingredient("Sprig Fresh Thyme", new Rectangle(), thymeTexture);
+            water = new Ingredient("Water", new Rectangle(), waterTexture);
+
+            //Buttons, same Rectangle clause applies
+            preheat = new Button("Preheat", new Rectangle(), buttonTexture, arial12);
+            roast = new Button("Roast", new Rectangle(), buttonTexture, arial12);
+            stir = new Button("Stir", new Rectangle(), buttonTexture, arial12);
+            refrigerate = new Button("Refrigerate", new Rectangle(), buttonTexture, arial12);
+            filter = new Button("Filter", new Rectangle(), buttonTexture, arial12);
 
             base.Initialize();
         }
@@ -59,11 +86,19 @@ namespace Stocknt_Summer_Game_Jam_Entry
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
+            arial12 = Content.Load<SpriteFont>("arial12");
+
             oilTexture = Content.Load<Texture2D>("ajay_suresh olive oil");
             chickenTexture = Content.Load<Texture2D>("scott_rubin chicken");
             carrotTexture = Content.Load<Texture2D>("carrots");
             onionTexture = Content.Load<Texture2D>("onions");
-
+            celeryTexture = Content.Load<Texture2D>("keepon_i celery");
+            wineTexture = Content.Load<Texture2D>("WHP Wine");
+            pepperCornTexture = Content.Load<Texture2D>("Laura_Shefler peppercorn");
+            cloveTexture = Content.Load<Texture2D>("anuandraj cloves");
+            bayLeavesTexture = Content.Load<Texture2D>("camilla_karstensen bay leaves");
+            thymeTexture = Content.Load<Texture2D>("thyme");
+            waterTexture = Content.Load<Texture2D>("water");
         }
 
         protected override void Update(GameTime gameTime)
